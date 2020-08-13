@@ -27,6 +27,7 @@ docker run --rm -it --privileged \
            -e VPN_PSK \
            -e VPN_USERNAME \
            -e VPN_PASSWORD \
+           -e ENABLE_SCOKS \
               wuamin/alpine-l2tp-vpn-client
 ```
 You can use `.env` file:
@@ -35,13 +36,14 @@ docker run --rm -it --privileged --env-file .env wuamin/alpine-l2tp-vpn-client
 ```
 
 ## Socks5
-If you set `ENABLE_SCOKS` to `1`, the container will run `dante` at startup to provide a socks5 proxy (via VPN).
+If you set `ENABLE_SCOKS` to `1` (default value is `0`), the container will run `dante` at startup to provide a socks5 proxy (via VPN).
 ```bash
 docker run --rm -it --privileged \
            -e VPN_SERVER \
            -e VPN_PSK \
            -e VPN_USERNAME \
            -e VPN_PASSWORD \
+           -e ENABLE_SCOKS \
            -p 1080:1080 \
               wuamin/alpine-l2tp-vpn-client
 ```
