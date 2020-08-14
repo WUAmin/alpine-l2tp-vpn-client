@@ -47,4 +47,4 @@ else
   echo "startup/socks5: Ignore socks5 server."
 fi
 
-exec tail -f /dev/null
+exec tail -f /dev/null  ## %%LAST-CMD_2_REPLACE%
