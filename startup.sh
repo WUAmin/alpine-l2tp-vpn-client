@@ -22,10 +22,12 @@ ipsec --status
 sleep 3
 
 
-# Run socks5 server after 10 Seconds if ENABLE_SCOKS is 1
-if [[ $ENABLE_SCOKS -eq 1 ]];then
-  echo "startup: Socks5 will start in $DANTE_START_DELAY seconds"
-  (sleep $DANTE_START_DELAY && sockd -N $DANTE_FORKS) &
+# Run socks5 server after 10 Seconds if SCOKS5_ENABLE is 1
+if [[ $SCOKS5_ENABLE -eq 1 ]];then
+  echo "startup: Socks5 will start in $SCOKS5_START_DELAY seconds"
+  (sleep $SCOKS5_START_DELAY && sockd -N $SCOKS5_FORKS) &
+else
+  echo "startup: Ignore socks5 server."
 fi
 
 

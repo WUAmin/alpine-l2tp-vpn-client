@@ -18,7 +18,7 @@ export VPN_SERVER='YOUR VPN SERVER IP OR FQDN'
 export VPN_PSK='my pre shared key'
 export VPN_USERNAME='myuser@myhost.com'
 export VPN_PASSWORD='mypass'
-export ENABLE_SCOKS=0
+export SCOKS5_ENABLE=0
 ```
 Now run it (you can daemonize of course after debugging):
 ```bash
@@ -27,24 +27,25 @@ docker run --rm -it --privileged \
            -e VPN_PSK \
            -e VPN_USERNAME \
            -e VPN_PASSWORD \
-           -e ENABLE_SCOKS \
               wuamin/alpine-l2tp-vpn-client
 ```
 You can use `.env` file:
 ```bash
-docker run --rm -it --privileged --env-file .env wuamin/alpine-l2tp-vpn-client
+source .env;docker run --rm -it --privileged --env-file .env -p ${SCOKS5_PORT}:1080 wuamin/alpine-l2tp-vpn-client
 ```
 
 ## Socks5
-If you set `ENABLE_SCOKS` to `1` (default value is `0`), the container will run `dante` at startup to provide a socks5 proxy (via VPN).
+If you set `SCOKS5_ENABLE` to `1` (default value is `0`), the container will run `dante` at startup to provide a socks5 proxy (via VPN). Don not forget to expose port 1080.
 ```bash
+export SCOKS5_ENABLE=0
+export SCOKS5_PORT=1080
 docker run --rm -it --privileged \
            -e VPN_SERVER \
            -e VPN_PSK \
            -e VPN_USERNAME \
            -e VPN_PASSWORD \
-           -e ENABLE_SCOKS \
-           -p 1080:1080 \
+           -e SCOKS5_ENABLE \
+           -p ${SCOKS5_PORT}:1080 \
               wuamin/alpine-l2tp-vpn-client
 ```
 
